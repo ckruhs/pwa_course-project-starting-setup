@@ -1,3 +1,4 @@
+var deferredPrompt;
 
 if ('serviceWorker' in navigator) {     // Prüfen ob Service Worker unterstützt wird
     navigator.serviceWorker
@@ -7,3 +8,10 @@ if ('serviceWorker' in navigator) {     // Prüfen ob Service Worker unterstütz
             console.log('Service worker registered!');
         });
 }
+
+window.addEventListener ('beforeinstallprompt', function(event) {
+    console.log ('beforeinstallprompt fired');
+    event.preventDefault();             // Verhindern, dass das Chrome "Install" Banner angezeigt wird
+    deferredPrompt = event;             // Merken, dass der Event ausgelöst wurde, so dass das Banner später per Code angezeigt werden kann.
+    return false;
+})
